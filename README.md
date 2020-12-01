@@ -1,8 +1,5 @@
 # Adonis API application
 
-## API GraphQL using Node.js and Express
-
-
 ## Getting started
 
 1. Clone this repo using `git clone git@github.com:thallesyasmim/API-AdonisJS.git`
