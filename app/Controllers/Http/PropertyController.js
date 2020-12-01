@@ -21,13 +21,14 @@ class PropertyController {
    */
   async index ({ request }) {
     const { latitude, longitude } = request.all()
-
+  
     const properties = Property.query()
+      .with('images')
       .nearBy(latitude, longitude, 10)
       .fetch()
-
+  
     return properties
-  }
+  }  
 
   /**
    * Render a form to be used for creating a new property.
@@ -101,6 +102,22 @@ class PropertyController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const property = await Property.findOrFail(params.id)
+
+    const data = request.only([
+      'title',
+      'address',
+      'latitude',
+      'longitude',
+      'price'
+    ])
+
+    property.merge(data)
+
+    await property.save()
+
+    return property
+
   }
 
   /**
