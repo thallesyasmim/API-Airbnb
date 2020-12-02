@@ -2,7 +2,7 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
-const Env = use('Env')
+const Env = use('Env') /* Add Import */ 
 
 class Image extends Model {
     static get computed()  {
