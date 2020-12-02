@@ -14,16 +14,16 @@ class Property extends Model {
         return this.hasMany('App/Models/Image')
     }
 
-    static scopeNearBy (query, latitude, longitude, distance) {
+    static scopeNearBy (query, latitude, longitude, distance) { // Scope Query
         const haversine = `(6371 * acos(cos(radians(${latitude}))
           * cos(radians(latitude))
           * cos(radians(longitude)
           - radians(${longitude}))
           + sin(radians(${latitude}))
-          * sin(radians(latitude))))`
+          * sin(radians(latitude))))` // Calculus Naval
       
-        return query
-          .select('*', Database.raw(`${haversine} as distance`))
+        return query // Avanced Query For PostgreSQL Database
+          .select('*', Database.raw(`${haversine} as distance`)) // Return Property Close distance
           .whereRaw(`${haversine} < ${distance}`)
       }
 }

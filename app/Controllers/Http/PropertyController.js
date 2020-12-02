@@ -19,10 +19,10 @@ class PropertyController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request }) {
+  async index ({ request }) { // List property
     const { latitude, longitude } = request.all()
   
-    const properties = Property.query()
+    const properties = Property.query() // Find Property as 10km Distance
       .with('images')
       .NearBy(latitude, longitude, 10)
       .fetch()
@@ -49,9 +49,9 @@ class PropertyController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ auth, request, response }) {
-    const { id } = auth.user
-    const data = request.only([
+  async store ({ auth, request, response }) { // Create Property
+    const { id } = auth.user // Find Id User Authentication
+    const data = request.only([ // Return Object
       'title',
       'address',
       'latitude',
@@ -77,7 +77,7 @@ class PropertyController {
   async show ({ params }) {
     const property = await Property.findOrFail(params.id)
     
-    await property.load('images')
+    await property.load('images') // Loading Images With Property
 
     return property
 
@@ -104,7 +104,7 @@ class PropertyController {
   async update ({ params, request, response }) {
     const property = await Property.findOrFail(params.id)
 
-    const data = request.only([
+    const data = request.only([ // Return Object
       'title',
       'address',
       'latitude',
@@ -112,9 +112,9 @@ class PropertyController {
       'price'
     ])
 
-    property.merge(data)
+    property.merge(data) // Update Data
 
-    await property.save()
+    await property.save() // Async
 
     return property
 

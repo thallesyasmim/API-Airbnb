@@ -22,7 +22,7 @@ Route.resource('/properties', 'PropertyController')
     .apiOnly()
     .middleware('auth')
 
-Route.post('/properties/:id/images', 'ImageController.store')
+Route.post('/properties/:id/images', 'ImageController.store') // Authenticaton Only && Create Images
     .middleware('auth')
 
-Route.get('images/:path', 'ImageController.show')
+Route.get('images/:path', 'ImageController.show') // Create URL Images
